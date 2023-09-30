@@ -9,6 +9,8 @@ export default function FinishForm() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Dados:</Text>
+
       <Text style={styles.subtitle}>Nome: {accountFormData.name}</Text>
       <Text style={styles.subtitle}>E-mail: {accountFormData.email}</Text>
       <Text style={styles.subtitle}>

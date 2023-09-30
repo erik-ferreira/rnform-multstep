@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Input } from "@/components/Input"
 import { Button } from "@/components/Button"
+import { Progress } from "@/components/Progress"
 
 import { useAccountForm } from "@/context/AccountFormContext"
 
@@ -38,6 +39,8 @@ export default function FormStepThree() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Escolha sua senha</Text>
+
+      <Progress progress={100} />
 
       <Input
         icon="lock"
