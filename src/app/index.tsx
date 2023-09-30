@@ -1,32 +1,34 @@
 import { useRef } from "react"
 import { useForm } from "react-hook-form"
+import { useNavigation } from "expo-router"
 import { View, Text, TextInput } from "react-native"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Input } from "@/components/Input"
 import { Button } from "@/components/Button"
 
-import { firstStepSchema, FirstStepData } from "@/utils/schemas"
+import { formStepOneSchema, FormStepOneData } from "@/utils/schemas"
 
 import { styles } from "./styles"
 
 export default function FormStepOne() {
+  const { navigate } = useNavigation()
+  const emailRef = useRef<TextInput>(null)
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FirstStepData>({
-    resolver: zodResolver(firstStepSchema),
+  } = useForm<FormStepOneData>({
+    resolver: zodResolver(formStepOneSchema),
     defaultValues: {
       name: "",
       email: "",
     },
   })
 
-  const emailRef = useRef<TextInput>(null)
-
-  function handleNextStep(data: FirstStepData) {
-    console.log(data)
+  function handleNextStep(data: FormStepOneData) {
+    navigate("formStepTwo")
   }
 
   return (

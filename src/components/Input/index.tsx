@@ -3,14 +3,12 @@ import { Feather } from "@expo/vector-icons"
 import { Controller, UseControllerProps } from "react-hook-form"
 import { View, Text, TextInput, TextInputProps } from "react-native"
 
-import { FirstStepData } from "@/utils/schemas"
-
 import { styles } from "./styles"
 
 interface InputProps extends TextInputProps {
   error?: string
   icon: keyof typeof Feather.glyphMap
-  controllerProps: UseControllerProps<FirstStepData>
+  controllerProps: UseControllerProps<any>
 }
 
 export const Input = forwardRef<TextInput, InputProps>(
