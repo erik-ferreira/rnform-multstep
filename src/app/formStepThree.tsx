@@ -7,11 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/Input"
 import { Button } from "@/components/Button"
 
-import { formStepTwoSchema, FormStepTwoData } from "@/utils/schemas"
+import { formStepThreeSchema, FormStepThreeData } from "@/utils/schemas"
 
 import { styles } from "./styles"
 
-export default function FormStepTwo() {
+export default function FormStepThree() {
   const { navigate } = useNavigation()
   const phoneRef = useRef<TextInput>(null)
 
@@ -19,38 +19,36 @@ export default function FormStepTwo() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormStepTwoData>({
-    resolver: zodResolver(formStepTwoSchema),
+  } = useForm<FormStepThreeData>({
+    resolver: zodResolver(formStepThreeSchema),
     defaultValues: {
-      birth: "",
-      phone: "",
+      password: "",
+      passwordConfirmation: "",
     },
   })
 
-  function handleNextStep(data: FormStepTwoData) {
-    navigate("formStepThree")
+  function handleNextStep(data: FormStepThreeData) {
+    console.log("formStepThreeSchema", data)
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Suas informações</Text>
+      <Text style={styles.title}>Escolha sua senha</Text>
 
       <Input
-        maxLength={10}
-        icon="calendar"
-        placeholder="Data de nascimento"
+        icon="lock"
+        placeholder="Senha"
         returnKeyType="next"
-        controllerProps={{ name: "birth", control }}
+        controllerProps={{ name: "password", control }}
         onSubmitEditing={() => phoneRef.current?.focus()}
-        error={errors?.birth?.message}
+        error={errors?.password?.message}
       />
       <Input
-        icon="phone"
+        icon="lock"
         ref={phoneRef}
-        placeholder="Telefone"
-        controllerProps={{ name: "phone", control }}
-        error={errors?.phone?.message}
-        maxLength={9}
+        placeholder="Confirmar senha"
+        controllerProps={{ name: "passwordConfirmation", control }}
+        error={errors?.passwordConfirmation?.message}
       />
 
       <Button title="Continuar" onPress={handleSubmit(handleNextStep)} />
