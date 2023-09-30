@@ -1,37 +1,43 @@
 import { forwardRef } from "react"
 import { Feather } from "@expo/vector-icons"
-import { View, TextInput, TextInputProps } from "react-native"
 import { Controller, UseControllerProps } from "react-hook-form"
+import { View, Text, TextInput, TextInputProps } from "react-native"
+
+import { FirstStepData } from "@/utils/schemas"
 
 import { styles } from "./styles"
 
-export interface InputsData {
-  name: string
-  email: string
-}
-
 interface InputProps extends TextInputProps {
+  error?: string
   icon: keyof typeof Feather.glyphMap
-  controllerProps: UseControllerProps<InputsData>
+  controllerProps: UseControllerProps<FirstStepData>
 }
 
 export const Input = forwardRef<TextInput, InputProps>(
-  ({ icon, controllerProps, ...rest }, ref) => {
+  ({ error, icon, controllerProps, ...rest }, ref) => {
     return (
       <Controller
         render={({ field }) => (
-          <View style={styles.group}>
-            <View style={styles.icon}>
-              <Feather name={icon} size={24} color="#0f172a" />
+          <View style={styles.container}>
+            <View style={styles.group}>
+              <View style={styles.icon}>
+                <Feather
+                  name={icon}
+                  size={24}
+                  color={error ? "#DC1637" : "#0f172a"}
+                />
+              </View>
+
+              <TextInput
+                ref={ref}
+                style={styles.control}
+                value={field.value}
+                onChangeText={field.onChange}
+                {...rest}
+              />
             </View>
 
-            <TextInput
-              ref={ref}
-              style={styles.control}
-              value={field.value}
-              onChangeText={field.onChange}
-              {...rest}
-            />
+            {error && <Text style={styles.messageError}>{error}</Text>}
           </View>
         )}
         control={controllerProps.control}

@@ -34,4 +34,10 @@ export const styles = StyleSheet.create({
     paddingLeft: 16,
     color: "#e2e8f0",
   },
+
+  messageError: {
+    fontSize: 14,
+    marginTop: 8,
+    color: "#DC1637",
+  },
 })
