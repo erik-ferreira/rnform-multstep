@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/Input"
 import { Button } from "@/components/Button"
 
+import { useAccountForm } from "@/context/AccountFormContext"
+
 import { formStepThreeSchema, FormStepThreeData } from "@/utils/schemas"
 
 import { styles } from "./styles"
@@ -14,6 +16,7 @@ import { styles } from "./styles"
 export default function FormStepThree() {
   const { navigate } = useNavigation()
   const phoneRef = useRef<TextInput>(null)
+  const { accountFormData, updateAccountFormData } = useAccountForm()
 
   const {
     control,
@@ -22,13 +25,14 @@ export default function FormStepThree() {
   } = useForm<FormStepThreeData>({
     resolver: zodResolver(formStepThreeSchema),
     defaultValues: {
-      password: "",
-      passwordConfirmation: "",
+      password: accountFormData.password,
+      passwordConfirmation: accountFormData.passwordConfirmation,
     },
   })
 
   function handleNextStep(data: FormStepThreeData) {
-    console.log("formStepThreeSchema", data)
+    updateAccountFormData(data)
+    navigate("finishForm")
   }
 
   return (

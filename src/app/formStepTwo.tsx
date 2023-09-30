@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/Input"
 import { Button } from "@/components/Button"
 
+import { useAccountForm } from "@/context/AccountFormContext"
+
 import { formStepTwoSchema, FormStepTwoData } from "@/utils/schemas"
 
 import { styles } from "./styles"
@@ -14,6 +16,7 @@ import { styles } from "./styles"
 export default function FormStepTwo() {
   const { navigate } = useNavigation()
   const phoneRef = useRef<TextInput>(null)
+  const { accountFormData, updateAccountFormData } = useAccountForm()
 
   const {
     control,
@@ -22,13 +25,14 @@ export default function FormStepTwo() {
   } = useForm<FormStepTwoData>({
     resolver: zodResolver(formStepTwoSchema),
     defaultValues: {
-      birth: "",
-      phone: "",
+      birth: accountFormData.birth,
+      phone: accountFormData.phone,
     },
   })
 
   function handleNextStep(data: FormStepTwoData) {
     navigate("formStepThree")
+    updateAccountFormData(data)
   }
 
   return (

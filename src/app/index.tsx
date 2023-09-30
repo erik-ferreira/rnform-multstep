@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/Input"
 import { Button } from "@/components/Button"
 
+import { useAccountForm } from "@/context/AccountFormContext"
+
 import { formStepOneSchema, FormStepOneData } from "@/utils/schemas"
 
 import { styles } from "./styles"
@@ -14,6 +16,7 @@ import { styles } from "./styles"
 export default function FormStepOne() {
   const { navigate } = useNavigation()
   const emailRef = useRef<TextInput>(null)
+  const { accountFormData, updateAccountFormData } = useAccountForm()
 
   const {
     control,
@@ -22,12 +25,13 @@ export default function FormStepOne() {
   } = useForm<FormStepOneData>({
     resolver: zodResolver(formStepOneSchema),
     defaultValues: {
-      name: "",
-      email: "",
+      name: accountFormData.name,
+      email: accountFormData.email,
     },
   })
 
   function handleNextStep(data: FormStepOneData) {
+    updateAccountFormData(data)
     navigate("formStepTwo")
   }
 

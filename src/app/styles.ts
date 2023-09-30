@@ -15,4 +15,9 @@ export const styles = StyleSheet.create({
     color: "#e2e8f0",
     marginBottom: 26,
   },
+
+  subtitle: {
+    fontSize: 18,
+    color: "#e2e8f0",
+  },
 })
